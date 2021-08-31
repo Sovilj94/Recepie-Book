@@ -1,9 +1,9 @@
-<app-header></app-header>
+<app-header (emitter)="navigate($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recepie></app-recepie>
-      <app-shopping-list></app-shopping-list>
+      <app-recepie *ngIf="nav == 'recepie'"></app-recepie>
+      <app-shopping-list *ngIf="nav == 'shop'"></app-shopping-list>
     </div>
   </div>
 </div>

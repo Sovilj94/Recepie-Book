@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-recepie';
+
+  nav:string ='recepie';
+
+  navigate(event: string){
+    this.nav = event;
+  }
+
 }
