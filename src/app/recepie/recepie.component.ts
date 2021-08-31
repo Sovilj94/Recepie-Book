@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Recepie } from '../models/recepie.model';
 
 @Component({
   selector: 'app-recepie',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecepieComponent implements OnInit {
 
+
+  recepieSelected: Recepie;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  recepieClicked(recepie: Recepie){
+
+    console.log()
+    this.recepieSelected = recepie;
+
   }
 
 }

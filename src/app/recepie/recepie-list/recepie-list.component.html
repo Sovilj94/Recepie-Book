@@ -4,7 +4,7 @@
     </div>
 </div>
 <hr>    
-<div class="row">
-        <app-recepie-item [recepies]="recepies"></app-recepie-item>
+<div class="row" >
+        <app-recepie-item *ngFor="let item of recepies" [recepie]="item" (event) = "recepieSelected($event)"></app-recepie-item>
 </div>
 
