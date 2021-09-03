@@ -15,6 +15,8 @@ export class RecepieDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.recepie);
+
   }
 
 
