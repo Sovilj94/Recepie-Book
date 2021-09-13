@@ -7,7 +7,7 @@ import { ShoppingService } from "../shopping-list/shopping.service";
 export class RecepieService{
 
    private recepies: Recepie[] = [
-        new Recepie('A test Recepie',
+        new Recepie(1,'A test Recepie',
         'dis is dis',
          'https://cdn.pixabay.com/photo/2017/06/21/22/42/recipe-2428926_1280.jpg',
          [
@@ -15,7 +15,7 @@ export class RecepieService{
             new Ingredient('Dvije virsle',6),
             new Ingredient('Jabuka',2)
          ]),
-        new Recepie('A test Recepie number 2',
+        new Recepie(2,'A test Recepie number 2',
         'toe toe',
         'https://p0.pxfuel.com/preview/995/747/603/recipe-dish-lunch-nutrition.jpg',
         [

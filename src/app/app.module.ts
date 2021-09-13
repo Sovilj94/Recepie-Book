@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { RecepieService } from './recepie/recepie.service';
 import { ShoppingService } from './shopping-list/shopping.service';
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   declarations: [
