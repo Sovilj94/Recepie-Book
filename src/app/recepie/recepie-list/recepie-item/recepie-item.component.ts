@@ -9,18 +9,13 @@ import { RecepieService } from '../../recepie.service';
 })
 export class RecepieItemComponent implements OnInit {
 
-  constructor(private recepieService: RecepieService) { }
+  constructor() { }
 
   @Input() recepie: Recepie;
 
   ngOnInit(): void {
   }
 
-  recepieSelected(recepie: Recepie){
-
-    this.recepieService.selectedRecepie.emit(recepie);
-
-  }
 
 
 

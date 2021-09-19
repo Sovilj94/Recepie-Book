@@ -1,4 +1,6 @@
 import { EventEmitter, Injectable, Output } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Subject } from "rxjs";
 import { Ingredient } from "../models/ingredient.model";
 import { Recepie } from "../models/recepie.model";
 import { ShoppingService } from "../shopping-list/shopping.service";
@@ -25,11 +27,11 @@ export class RecepieService{
         ])
       ];
       
-      @Output() selectedRecepie = new EventEmitter<Recepie>();
+      @Output() selectedRecepie = new Subject<Recepie>();
       /**
        *
        */
-      constructor(private slService:ShoppingService) {
+      constructor(private slService:ShoppingService, private activatedRout: ActivatedRoute) {
           
       }
 
@@ -42,6 +44,20 @@ export class RecepieService{
           console.log(ingrediants);
         this.slService.addIngredients(ingrediants);
       }
+
+      getRecepie(id:number){
+         return this.recepies.find(x => x.id == id);
+      }
+
+      addRecepie(recepie:Recepie){
+        this.recepies.push(recepie);
+      }
+
+      updateRecepie(recepie: Recepie, id : number){
+        this.recepies[id] = recepie;
+      }
+
+      
 
     
 }
