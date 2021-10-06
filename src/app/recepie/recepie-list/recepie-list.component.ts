@@ -16,8 +16,6 @@ export class RecepieListComponent implements OnInit {
 
   ngOnInit(): void {
     this.recepies = this.recepieService.getRecepies();
-
-    
   }
 
   onNewRecepie(){

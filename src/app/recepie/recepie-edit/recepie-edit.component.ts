@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Ingredient } from 'src/app/models/ingredient.model';
 import { Recepie } from 'src/app/models/recepie.model';
 import { RecepieService } from '../recepie.service';
@@ -16,7 +16,7 @@ export class RecepieEditComponent implements OnInit {
   editMode = false;
   recepieForm: FormGroup;
 
-  constructor(private activatedRout: ActivatedRoute, private recepieService: RecepieService) { }
+  constructor(private activatedRout: ActivatedRoute, private recepieService: RecepieService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -61,10 +61,27 @@ export class RecepieEditComponent implements OnInit {
   }
 
   onSubmit(){
-    //const newRecepie = new Recepie();
+  
+  let ids = this.recepieService.getRecepies().map(x => x.id);
+  let maxId = Math.max(...ids);
+
+    const newRecepie = new Recepie(maxId + 1,this.recepieForm.value['name'],
+    this.recepieForm.value['description'],
+    this.recepieForm.value['imagePath'],
+    this.recepieForm.value['ingredients']);
+
+    const updateRecepie = new Recepie(this.id,this.recepieForm.value['name'],
+    this.recepieForm.value['description'],
+    this.recepieForm.value['imagePath'],
+    this.recepieForm.value['ingredients'])
+
       if(this.editMode){
-        //this.recepieService.updateRecepie(this.id, )
+        this.recepieService.updateRecepie(updateRecepie,this.id);
+        console.log(updateRecepie);
+      }else{
+        this.recepieService.addRecepie(newRecepie);
       }
+      this.onCancel();
   }
 
   get controls() { // a getter!
@@ -76,6 +93,15 @@ export class RecepieEditComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       amount: new FormControl(null,[Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
     }))
+  }
+
+  onCancel(){
+      this.router.navigate(['../'], {relativeTo: this.activatedRout});
+  }
+
+  onDeleteIngredient(index: number){
+    
+    (<FormArray>this.recepieForm.get('ingredients')).removeAt(index);
   }
 
 }

@@ -37,7 +37,7 @@ export class RecepieService{
 
 
       getRecepies(){
-          return this.recepies.slice();
+          return this.recepies;
       }
 
       addIngrediants(ingrediants: Ingredient[]){
@@ -54,9 +54,17 @@ export class RecepieService{
       }
 
       updateRecepie(recepie: Recepie, id : number){
-        this.recepies[id] = recepie;
+        this.recepies[id - 1] = recepie;
       }
 
+      deleteRecepie(id: number){
+
+        this.recepies.splice(id - 1,1);
+      }
+
+      deleteIngredient(recepieId: number, ingredientId: number){
+        this.recepies[recepieId - 1].ingrediants.splice(ingredientId,1);
+      }
       
 
     
