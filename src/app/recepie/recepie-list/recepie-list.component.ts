@@ -15,7 +15,12 @@ export class RecepieListComponent implements OnInit {
   constructor(private recepieService: RecepieService, private activatedRout: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.recepies = this.recepieService.getRecepies();
+    this.recepieService.changedRecepie.subscribe((result:Recepie[]) => {
+
+      console.log(result);
+
+      this.recepies = result
+    })
   }
 
   onNewRecepie(){

@@ -8,29 +8,13 @@ import { ShoppingService } from "../shopping-list/shopping.service";
 @Injectable()
 export class RecepieService{
 
-   private recepies: Recepie[] = [
-        new Recepie(1,'A test Recepie',
-        'dis is dis',
-         'https://cdn.pixabay.com/photo/2017/06/21/22/42/recipe-2428926_1280.jpg',
-         [
-            new Ingredient('Komad droge',10),
-            new Ingredient('Dvije virsle',6),
-            new Ingredient('Jabuka',2)
-         ]),
-        new Recepie(2,'A test Recepie number 2',
-        'toe toe',
-        'https://p0.pxfuel.com/preview/995/747/603/recipe-dish-lunch-nutrition.jpg',
-        [
-            new Ingredient('Kurac od ovce',10),
-            new Ingredient('Rakija',6),
-            new Ingredient('Majmun',20)
-        ])
-      ];
+   public recepies: Recepie[] = [];
       
-      @Output() selectedRecepie = new Subject<Recepie>();
+      @Output() changedRecepie = new Subject<Recepie[]>();
       /**
        *
        */
+
       constructor(private slService:ShoppingService, private activatedRout: ActivatedRoute) {
           
       }
@@ -64,6 +48,36 @@ export class RecepieService{
 
       deleteIngredient(recepieId: number, ingredientId: number){
         this.recepies[recepieId - 1].ingrediants.splice(ingredientId,1);
+      }
+
+
+      setRecepies(recepies: Recepie[]){
+         
+
+        this.recepies = [
+
+          new Recepie(1,'A test Recepie',
+          'dis is dis',
+          'https://cdn.pixabay.com/photo/2017/06/21/22/42/recipe-2428926_1280.jpg',
+          [
+            new Ingredient('Komad droge',10),
+            new Ingredient('Dvije virsle',6),
+            new Ingredient('Jabuka',2)
+          ]),
+          new Recepie(2,'A test Recepie number 2',
+          'toe toe',
+          'https://p0.pxfuel.com/preview/995/747/603/recipe-dish-lunch-nutrition.jpg',
+          [
+            new Ingredient('Kurac od ovce',10),
+            new Ingredient('Rakija',6),
+            new Ingredient('Majmun',20)
+          ])
+          
+        ]
+
+
+        this.changedRecepie.next(this.recepies);
+
       }
       
 
