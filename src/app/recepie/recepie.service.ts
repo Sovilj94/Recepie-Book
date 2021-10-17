@@ -9,17 +9,17 @@ import { ShoppingService } from "../shopping-list/shopping.service";
 export class RecepieService{
 
    public recepies: Recepie[] = [];
-      
-      @Output() changedRecepie = new Subject<Recepie[]>();
+
+      @Output() selectedRecepie = new Subject<Recepie>();
       /**
        *
        */
 
+      @Output() changedRecepies = new Subject<Recepie[]>();
+
       constructor(private slService:ShoppingService, private activatedRout: ActivatedRoute) {
-          
+
       }
-
-
       getRecepies(){
           return this.recepies;
       }
@@ -52,34 +52,34 @@ export class RecepieService{
 
 
       setRecepies(recepies: Recepie[]){
-         
-
-        this.recepies = [
-
-          new Recepie(1,'A test Recepie',
-          'dis is dis',
-          'https://cdn.pixabay.com/photo/2017/06/21/22/42/recipe-2428926_1280.jpg',
-          [
-            new Ingredient('Komad droge',10),
-            new Ingredient('Dvije virsle',6),
-            new Ingredient('Jabuka',2)
-          ]),
-          new Recepie(2,'A test Recepie number 2',
-          'toe toe',
-          'https://p0.pxfuel.com/preview/995/747/603/recipe-dish-lunch-nutrition.jpg',
-          [
-            new Ingredient('Kurac od ovce',10),
-            new Ingredient('Rakija',6),
-            new Ingredient('Majmun',20)
-          ])
-          
-        ]
 
 
-        this.changedRecepie.next(this.recepies);
+        this.recepies = recepies;
+
+          // new Recepie(1,'A test Recepie',
+          // 'dis is dis',
+          // 'https://cdn.pixabay.com/photo/2017/06/21/22/42/recipe-2428926_1280.jpg',
+          // [
+          //   new Ingredient('Komad droge',10),
+          //   new Ingredient('Dvije virsle',6),
+          //   new Ingredient('Jabuka',2)
+          // ]),
+          // new Recepie(2,'A test Recepie number 2',
+          // 'toe toe',
+          // 'https://p0.pxfuel.com/preview/995/747/603/recipe-dish-lunch-nutrition.jpg',
+          // [
+          //   new Ingredient('Kurac od ovce',10),
+          //   new Ingredient('Rakija',6),
+          //   new Ingredient('Majmun',20)
+          // ])
+
+
+
+
+        this.changedRecepies.next(this.recepies);
 
       }
-      
 
-    
+
+
 }

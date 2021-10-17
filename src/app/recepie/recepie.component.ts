@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Recepie } from '../models/recepie.model';
+import { DataStorageService } from '../shared/data-storage.service';
 import { RecepieService } from './recepie.service';
 
 @Component({
@@ -12,13 +13,15 @@ export class RecepieComponent implements OnInit {
 
   recepieSelected: Recepie;
 
-  constructor(private recepieService: RecepieService) { }
+  constructor(private recepieService: RecepieService, private data : DataStorageService) { }
 
   ngOnInit(): void {
-    this.recepieService.selectedRecepie.subscribe((recepie:Recepie) => {
+    this.recepieService.selectedRecepie.subscribe(recepie => {
       this.recepieSelected = recepie;
 
-    })
+    });
+
+    this.data.getRecepies();
   }
 
 }

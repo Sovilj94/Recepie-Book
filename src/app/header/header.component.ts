@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
@@ -8,14 +10,26 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private storage: DataStorageService) { }
+  constructor(private storage: DataStorageService, private authService: AuthService) { }
 
   @Output() emitter = new EventEmitter<string>();
+  userSub: Subscription;
+  isAuthenticated = false;
+
 
 
   ngOnInit(): void {
+    this.userSub =  this.authService.user.subscribe(result => {
+      this.isAuthenticated = !result ? false : true;
+    });
   }
-  
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.userSub.unsubscribe();
+  }
+
   onSelect(str: string){
 
     this.emitter.emit(str);
@@ -26,7 +40,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onGetData(){
-    this.storage.getData();
+    this.storage.getRecepies().subscribe();
+  }
+
+  onLogout(){
+    this.authService.logout();
   }
 
 

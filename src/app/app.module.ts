@@ -17,7 +17,11 @@ import { ShoppingService } from './shopping-list/shopping.service';
 import { RouterModule, Routes } from '@angular/router';
 import { RecepieEditComponent } from './recepie/recepie-edit/recepie-edit.component';
 import { DataStorageService } from './shared/data-storage.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AlertComponent } from './shared/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     RecepieComponent,
     DropdownDirective,
-    RecepieEditComponent
+    RecepieEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [RecepieService,ShoppingService,DataStorageService],
+  providers: [RecepieService,ShoppingService,DataStorageService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
